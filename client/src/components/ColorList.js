@@ -25,38 +25,48 @@ const ColorList = ({ colors, updateColors }) => {
     axiosWithAuth()
     .put(`http://localhost:5000/api/colors/${colorToEdit.id}`, colorToEdit)
     .then(res => {
-      console.log(res)
+    //   console.log(res)
       setEditing(false)
-    })
+     })
     .then(res => {
       axiosWithAuth()
-      .get(`http://localhost:5000/api/colors`)
+       .get(`http://localhost:5000/api/colors`)
       .then(res => updateColors(res.data))
       .catch(err => console.log(err))
     })
-    .catch(err => console.log(err))
+     .catch(err => console.log(err))
   };
 
   const deleteColor = color => {
     // make a delete request to delete this color
-  };
+
+    axiosWithAuth()
+    .delete(`http://localhost:5000/api/colors/${color.id}`)
+     .then(res => {
+    //   console.log(res)
+      setEditing(false)
+     })
+  //   .then(res => {
+  //     axiosWithAuth()
+  //     .get(`http://localhost:5000/api/colors`)
+  //     .then(res => updateColors(res.data))
+  //     .catch(err => console.log(err))
+  //   })
+  //   .catch(err => console.log(err))
+   };
 
   return (
     <div className="colors-wrap">
-
       <p>colors</p>
       <ul>
         {colors.map(color => (
           <li key={color.color} onClick={() => editColor(color)}>
             <span>
-
               <span className="delete" onClick={() => deleteColor(color)}>
                 x
               </span>{" "}
               {color.color}
-
             </span>
-
             <div
               className="color-box"
               style={{ backgroundColor: color.code.hex }}
@@ -64,7 +74,6 @@ const ColorList = ({ colors, updateColors }) => {
           </li>
         ))}
       </ul>
-
       {editing && (
         <form onSubmit={saveEdit}>
           <legend>edit color</legend>
@@ -77,7 +86,6 @@ const ColorList = ({ colors, updateColors }) => {
               value={colorToEdit.color}
             />
           </label>
-
           <label>
             hex code:
             <input
@@ -90,12 +98,10 @@ const ColorList = ({ colors, updateColors }) => {
               value={colorToEdit.code.hex}
             />
           </label>
-
           <div className="button-row">
             <button type="submit">save</button>
             <button onClick={() => setEditing(false)}>cancel</button>
           </div>
-          
         </form>
       )}
       <div className="spacer" />

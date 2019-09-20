@@ -19,6 +19,7 @@ const Login = (props) => {
       })
   }
 
+  // when you have handled the token, navigate to the BubblePage route
   return (
     <form onSubmit ={handleSubmit}>
             <input 

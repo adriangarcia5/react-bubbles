@@ -9,4 +9,4 @@ export const axiosWithAuth =() => {
             Authorization: localStorage.getItem('token')
         },
     });
-}; 
+};
